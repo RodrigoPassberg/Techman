@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMan - Sistema de Equipamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <img src="../assets/techman.png" alt="Logo TechMan" class="login-logo-image">
+            <div class="login-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="../">
+                            <rect width="40" height="40" rx="8" fill="#2563eb"/>
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h1>TechMan</h1>
+                </div>
+                <p class="login-subtitle">Sistema de Gerenciamento de Equipamentos</p>
+            </div>
+
+            <div class="login-form">
+                <div class="password-display">
+                    <span id="passwordDisplay">••••••</span>
+                </div>
+
+                <div class="virtual-keyboard">
+                    <div class="keyboard-row">
+                        <button class="key-btn" data-key="1">1</button>
+                        <button class="key-btn" data-key="2">2</button>
+                        <button class="key-btn" data-key="3">3</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="key-btn" data-key="4">4</button>
+                        <button class="key-btn" data-key="5">5</button>
+                        <button class="key-btn" data-key="6">6</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="key-btn" data-key="7">7</button>
+                        <button class="key-btn" data-key="8">8</button>
+                        <button class="key-btn" data-key="9">9</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="key-btn clear-btn" data-key="clear">C</button>
+                        <button class="key-btn" data-key="0">0</button>
+                        <button class="key-btn enter-btn" id="enterBtn" data-key="enter" disabled>⏎</button>
+                    </div>
+                </div>
+
+                <div class="login-actions">
+                    <button class="btn-secondary" id="exitBtn">Sair</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainScreen" class="screen">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-small">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563eb"/>
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span>TechMan</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="newEquipmentBtn" style="display: none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Novo Equipamento
+                    </button>
+                    <button class="btn-secondary" id="logoutBtn">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h2>Equipamentos</h2>
+                <p class="content-subtitle">Gerencie seus equipamentos e visualize comentários</p>
+            </div>
+
+            <div class="equipment-grid" id="equipmentGrid">
+                </div>
+        </main>
+    </div>
+
+    <div id="commentsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Comentários</h3>
+                <button class="modal-close" id="closeCommentsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="comments-list" id="commentsList">
+                    </div>
+                <div class="add-comment-section">
+                    <button class="btn-primary" id="addCommentBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Adicionar Comentário
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newCommentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Novo Comentário</h3>
+                <button class="modal-close" id="closeNewCommentModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newCommentForm">
+                    <div class="form-group">
+                        <label for="commentText">Comentário:</label>
+                        <textarea id="commentText" name="commentText" rows="4" placeholder="Digite seu comentário..." required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelCommentBtn">Cancelar</button>
+                        <button type="submit" class="btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="newEquipmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Novo Equipamento</h3>
+                <button class="modal-close" id="closeNewEquipmentModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newEquipmentForm">
+                    <div class="form-group">
+                        <label for="equipmentName">Nome do equipamento:</label>
+                        <input type="text" id="equipmentName" name="equipmentName" placeholder="Digite o nome do equipamento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="equipmentImage">URL da imagem:</label>
+                        <input type="url" id="equipmentImage" name="equipmentImage" placeholder="Digite a URL da imagem" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="equipmentDescription">Descrição:</label>
+                        <textarea id="equipmentDescription" name="equipmentDescription" rows="4" placeholder="Digite a descrição do equipamento" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="equipmentActive" name="equipmentActive" checked>
+                            <span class="checkmark"></span>
+                            Equipamento ativo
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelEquipmentBtn">Cancelar</button>
+                        <button type="submit" class="btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Exclusão</h3>
+                <button class="modal-close" id="closeDeleteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir este equipamento? Esta ação não pode ser desfeita.</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelDeleteBtn">Cancelar</button>
+                    <button type="button" class="btn-danger" id="confirmDeleteBtn">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
